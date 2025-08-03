@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Withdraw Request | Bananas Earn 🍌</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+        }
+        .navbar {
+            background: #F0B90B;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            color: #1E2026;
+        }
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 1rem 0 0.3rem;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .btn {
+            margin-top: 1.5rem;
+            width: 100%;
+            background: #F0B90B;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #d9a800;
+        }
+        #status {
+            margin-top: 1rem;
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">🍌 Withdraw Funds</div>
+
+    <div class="container">
+        <h2>Withdraw Request</h2>
+        <p style="text-align:center;">Minimum: <strong>400 Bananas31</strong></p>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" placeholder="Enter amount" min="400">
+
+        <label for="binance-id">Binance ID:</label>
+        <input type="text" id="binance-id" placeholder="Enter your Binance ID">
+
+        <button class="btn" onclick="submitRequest()">Submit Request</button>
+
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function submitRequest() {
+            const amount = document.getElementById('amount').value;
+            const binanceId = document.getElementById('binance-id').value;
+
+            if (amount < 400) {
+                alert("Minimum withdrawal is 400 Bananas31");
+                return;
+            }
+
+            const requests = JSON.parse(localStorage.getItem('requests') || '[]');
+            requests.push({
+                user: "current_user",
+                amount: amount,
+                binanceId: binanceId,
+                status: "pending",
+                date: new Date().toLocaleString()
+            });
+            localStorage.setItem('requests', JSON.stringify(requests));
+
+            document.getElementById('status').textContent = "✅ Request sent to admin!";
+        }
+    </script>
+</body>
+</html>
